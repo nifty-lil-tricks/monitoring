@@ -1,5 +1,5 @@
 name: CI
-on: [push, pull_request]
+on: pull_request
 jobs:
   test:
     runs-on: ${{ matrix.os }}
@@ -13,12 +13,12 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Use Node.js${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies (with cache)
-        uses: bahmutov/npm-install@v1
+      - name: Install dependencies
+        run: npm install --no-scripts
 
       - name: Lint
         run: npm run lint

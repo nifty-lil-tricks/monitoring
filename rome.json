@@ -8,10 +8,10 @@
 		"rules": {
 			"recommended": true
 		},
-		"ignore": ["build/*", "dist/*", "node_modules/*", "vendor/*"]
+		"ignore": ["build/*", "dist/*", "node_modules/*", "vendor/*", ".nyc_output"]
 	},
 	"formatter": {
 		"enabled": true,
-		"ignore": ["build/*", "dist/*", "node_modules/*", "vendor/*"]
+		"ignore": ["build/*", "dist/*", "node_modules/*", "vendor/*", ".nyc_output"]
 	}
 }

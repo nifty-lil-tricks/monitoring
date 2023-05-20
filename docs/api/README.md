@@ -1,3 +1,5 @@
+@nifty-lil-tricks/monitoring / [Exports](modules.md)
+
 # @nifty-lil-tricks/monitoring
 
 [![Latest Version](https://img.shields.io/npm/v/@nifty-lil-tricks/monitoring?style=flat-square)](https://www.npmjs.com/package/@nifty-lil-tricks/monitoring)

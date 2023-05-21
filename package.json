@@ -1,17 +1,17 @@
 {
 	"name": "@nifty-lil-tricks/monitoring",
 	"description": "A selection of useful utilities for all things monitoring and OpenTelemetry",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"author": "Jonny Green <hello@jonnydgreen.com>",
 	"license": "MIT",
 	"repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/jonnydgreen/nifty-lil-tricks-monitoring.git"
-  },
-  "bugs": {
-    "url": "https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/issues"
-  },
-  "homepage": "https://github.com/jonnydgreen/nifty-lil-tricks-monitoring",
+		"type": "git",
+		"url": "git+ssh://git@github.com/jonnydgreen/nifty-lil-tricks-monitoring.git"
+	},
+	"bugs": {
+		"url": "https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/issues"
+	},
+	"homepage": "https://github.com/jonnydgreen/nifty-lil-tricks-monitoring",
 	"keywords": [
 		"monitoring",
 		"opentelemetry",

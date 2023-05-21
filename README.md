@@ -336,6 +336,6 @@ fixed a bug for yourself, please consider submitting a PR!
 
 <p align="center">
   <a href="https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=jonnydgreen/nifty-lil-tricks&columns=8" />
+    <img src="https://contrib.rocks/image?repo=jonnydgreen/nifty-lil-tricks-monitoring&columns=8" />
   </a>
 </p>

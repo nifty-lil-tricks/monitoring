@@ -9,6 +9,8 @@ A selection of useful utilities for all things monitoring and
 
 ## Installation
 
+**Note: this package works with TypeScript v5 or later**
+
 **`@opentelemetry/api` package is a peer-dependency, and it should be installed
 separately.**
 
@@ -18,13 +20,25 @@ npm install @nifty-lil-tricks/monitoring @opentelemetry/api
 
 ## Features
 
+The following features are supported
+
 - [Monitoring decorator](#monitoring-decorator) that wraps all methods of a
   class in an
-  [OpenTelemetry Span](https://opentelemetry.io/docs/concepts/glossary/#span).
-
-**Official docs coming soon!**
+  [OpenTelemetry Span](https://opentelemetry.io/docs/concepts/glossary/#span)
+  automatically tracing every method on the class.
 
 ### Monitoring Decorator
+
+- [Monitoring Decorator Overview](#monitoring-decorator-overview)
+- [Pre-requisites](#pre-requisites)
+- [Wrap all methods of a class in a span](#wrap-all-methods-of-a-class-in-a-span)
+- [Filter allowed methods to monitor](#filter-allowed-methods-to-monitor)
+- [Override the default Span kind](#override-the-default-span-kind)
+- [Override the inferred class name](#override-the-inferred-class-name)
+- [Override the default tracer name](#override-the-default-tracer-name) -
+  [Caveats](#caveats)
+
+#### Monitoring Decorator Overview
 
 This decorator wraps all methods of a class in an
 [OpenTelemetry Span](https://opentelemetry.io/docs/concepts/glossary/#span). If
@@ -32,12 +46,13 @@ a parent span cannot be retrieved from the context of the method call, it will
 **not** be monitored.
 
 The decorator will not affect any of the underlying functionality and it will
-handle any legitimate errors thrown from the underlying method as appropriate.
+also handle any legitimate errors thrown from the underlying method as
+appropriate.
 
-#### Exported span for method that passes
+##### Exported span for method that passes
 
 A method of name `hello` on class `Service` that returns without error will
-export the following span details:
+export the following span details by default:
 
 ```json
 {
@@ -58,10 +73,10 @@ export the following span details:
 }
 ```
 
-#### Exported span for method that throws
+##### Exported span for method that throws
 
 A method of name `hello` on class `Service` that throws an error will export the
-following span details:
+following span details by default:
 
 ```json
 {
@@ -89,12 +104,11 @@ Ensure
 by ensuring:
 
 - The provider is registered
-- The monitored method is wrapped in a parent span
+- The monitored method is wrapped in the context of a parent span
 - A global context manager is set up
 
-See
-[example set up](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/examples/basic.ts)
-for a quick guide to the above.
+See [example set up](#basic-example) for a quick guide to getting the above
+setup.
 
 #### Wrap all methods of a class in a span
 
@@ -119,44 +133,7 @@ class Service {
 }
 ```
 
-#### Override the inferred class name
-
-By default, the monitor decorator infers the class name from the class. This
-option allows one to override this behaviour. A use-case for this would be when
-one has multiple classes of the same name defined.
-
-```typescript
-import { Monitor } from "@nifty-lil-tricks/monitoring";
-import { promisify } from "node:util";
-
-@Monitor({ className: "OtherService" })
-class Service {
-  async hello(): Promise<void> {
-    // Do work
-    await promisify(setTimeout)(500);
-  }
-}
-```
-
-#### Override the default tracer name
-
-By default, the monitor decorator uses the default tracer to record spans. This
-option allows one to override this behaviour.
-
-```typescript
-import { Monitor } from "@nifty-lil-tricks/monitoring";
-import { promisify } from "node:util";
-
-@Monitor({ tracerName: "some-other-tracer" })
-class Service {
-  async hello(): Promise<void> {
-    // Do work
-    await promisify(setTimeout)(500);
-  }
-}
-```
-
-#### Filter methods to monitor
+#### Filter allowed methods to monitor
 
 By default, the monitor decorator monitors all
 non-[private]((https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields))
@@ -224,6 +201,61 @@ class Service {
 }
 ```
 
+#### Override the default Span kind
+
+By default, the monitor decorator sets the Span Kind to be `INTERNAL`. This
+option allows one to override this.
+
+```typescript
+import { Monitor } from "@nifty-lil-tricks/monitoring";
+import { promisify } from "node:util";
+
+@Monitor({ spanKind: SpanKind.SERVER })
+class Service {
+  async hello(): Promise<void> {
+    // Do work
+    await promisify(setTimeout)(500);
+  }
+}
+```
+
+#### Override the inferred class name
+
+By default, the monitor decorator infers the class name from the class. This
+option allows one to override this behaviour. A use-case for this would be when
+one has multiple classes of the same name defined.
+
+```typescript
+import { Monitor } from "@nifty-lil-tricks/monitoring";
+import { promisify } from "node:util";
+
+@Monitor({ className: "OtherService" })
+class Service {
+  async hello(): Promise<void> {
+    // Do work
+    await promisify(setTimeout)(500);
+  }
+}
+```
+
+#### Override the default tracer name
+
+By default, the monitor decorator uses the default tracer to record spans. This
+option allows one to override this behaviour.
+
+```typescript
+import { Monitor } from "@nifty-lil-tricks/monitoring";
+import { promisify } from "node:util";
+
+@Monitor({ tracerName: "some-other-tracer" })
+class Service {
+  async hello(): Promise<void> {
+    // Do work
+    await promisify(setTimeout)(500);
+  }
+}
+```
+
 #### Caveats
 
 Private methods
@@ -251,12 +283,14 @@ class Service {
 
 ## API
 
-The API docs can be found [here](./docs/api/modules.md)
+The API docs can be found [here](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/docs/api/modules.md)
 
 ## Examples
 
 Examples can be found
 [here](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/examples/basic.ts).
+
+### Basic example
 
 To run the `examples/basic.ts` example, run the following:
 
@@ -264,7 +298,15 @@ To run the `examples/basic.ts` example, run the following:
 - Start the Jaeger collector: `npm run start:collector`
 - Run the example: `npm run example:basic`
 
-![Example exported trace](./docs/img/example-basic-export.png)
+![Example exported trace](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/raw/main/docs/img/example-basic-export.png)
+## Support
+
+| Platform Version | Supported          | Notes                                                     |
+| ---------------- | ------------------ | --------------------------------------------------------- |
+| Node.JS `v18`    | :white_check_mark: | TypeScript v5+ for typings                                |
+| Node.JS `v20`    | :white_check_mark: | TypeScript v5+ for typings                                |
+| Deno `v1`        | :x:                | Will be supported when OpenTelemetry is supported in Deno |
+| Web Browsers     | :x:                | Coming soon                                               |
 
 ## Useful links
 
@@ -287,12 +329,12 @@ creating employment for local families and restoring wildlife habitats.
 
 ## Contributions
 
-[Contributions](https://github.com/jonnydgreen/nifty-lil-tricks/blob/main/CONTRIBUTING.md),
+[Contributions](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/CONTRIBUTING.md),
 issues and feature requests are very welcome. If you are using this package and
 fixed a bug for yourself, please consider submitting a PR!
 
 <p align="center">
-  <a href="https://github.com/jonnydgreen/nifty-lil-tricks/graphs/contributors">
+  <a href="https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/graphs/contributors">
     <img src="https://contrib.rocks/image?repo=jonnydgreen/nifty-lil-tricks&columns=8" />
   </a>
 </p>

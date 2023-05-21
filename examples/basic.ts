@@ -1,45 +1,55 @@
-import { context, diag, DiagConsoleLogger, DiagLogLevel, trace } from '@opentelemetry/api'
-import { AsyncLocalStorageContextManager } from '@opentelemetry/context-async-hooks'
-import { Resource } from '@opentelemetry/resources'
-import { BasicTracerProvider, ConsoleSpanExporter, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base'
-import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto'
-import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions'
-import { promisify } from 'node:util'
-import { Monitor } from '../src'
+import {
+	context,
+	diag,
+	DiagConsoleLogger,
+	DiagLogLevel,
+	trace,
+} from "@opentelemetry/api";
+import { AsyncLocalStorageContextManager } from "@opentelemetry/context-async-hooks";
+import { Resource } from "@opentelemetry/resources";
+import {
+	BasicTracerProvider,
+	ConsoleSpanExporter,
+	SimpleSpanProcessor,
+} from "@opentelemetry/sdk-trace-base";
+import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-proto";
+import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
+import { promisify } from "node:util";
+import { Monitor } from "../src";
 
 // Setting the default Global logger to use the Console
 // And optionally change the logging level (Defaults to INFO)
-diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG)
+diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
 
 const consoleExporter = new ConsoleSpanExporter();
-const exporter = new OTLPTraceExporter()
+const exporter = new OTLPTraceExporter();
 const provider = new BasicTracerProvider({
-  resource: new Resource({
-    [SemanticResourceAttributes.SERVICE_NAME]: 'basic-example'
-  })
-})
-context.setGlobalContextManager(new AsyncLocalStorageContextManager())
-provider.addSpanProcessor(new SimpleSpanProcessor(exporter))
-provider.addSpanProcessor(new SimpleSpanProcessor(consoleExporter))
-provider.register()
+	resource: new Resource({
+		[SemanticResourceAttributes.SERVICE_NAME]: "basic-example",
+	}),
+});
+context.setGlobalContextManager(new AsyncLocalStorageContextManager());
+provider.addSpanProcessor(new SimpleSpanProcessor(exporter));
+provider.addSpanProcessor(new SimpleSpanProcessor(consoleExporter));
+provider.register();
 
 @Monitor()
 class Service {
-  hello(): void {}
+	hello(): void {}
 
-  async helloAsync(): Promise<void> {
-    await promisify(setTimeout)(500)
-    await this.nestedAsync()
-    await promisify(setTimeout)(500)
-  }
+	async helloAsync(): Promise<void> {
+		await promisify(setTimeout)(500);
+		await this.nestedAsync();
+		await promisify(setTimeout)(500);
+	}
 
-  async nestedAsync(): Promise<void> {
-    await promisify(setTimeout)(1000)
-  }
+	async nestedAsync(): Promise<void> {
+		await promisify(setTimeout)(1000);
+	}
 }
 
-const a = new Service()
-const tracer = trace.getTracer('example-basic-tracer-node')
-const parentSpan = tracer.startSpan('basic-root')
-const ctx = trace.setSpan(context.active(), parentSpan)
-context.with(ctx, () => a.helloAsync()).finally(() => parentSpan.end())
+const a = new Service();
+const tracer = trace.getTracer("example-basic-tracer-node");
+const parentSpan = tracer.startSpan("basic-root");
+const ctx = trace.setSpan(context.active(), parentSpan);
+context.with(ctx, () => a.helloAsync()).finally(() => parentSpan.end());

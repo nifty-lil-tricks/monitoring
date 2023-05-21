@@ -3,6 +3,7 @@
 [![Latest Version](https://img.shields.io/npm/v/@nifty-lil-tricks/monitoring?style=flat-square)](https://www.npmjs.com/package/@nifty-lil-tricks/monitoring)
 [![GitHub License](https://img.shields.io/github/license/jonnydgreen/nifty-lil-tricks-monitoring?style=flat-square)](https://raw.githubusercontent.com/jonnydgreen/nifty-lil-tricks-monitoring/main/LICENSE)
 [![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/jonnydgreen/nifty-lil-tricks-monitoring)
+[![codecov](https://codecov.io/gh/jonnydgreen/nifty-lil-tricks-monitoring/branch/main/graph/badge.svg)](https://codecov.io/gh/jonnydgreen/nifty-lil-tricks-monitoring)
 
 A selection of useful utilities for all things monitoring and
 [OpenTelemetry](https://opentelemetry.io/).

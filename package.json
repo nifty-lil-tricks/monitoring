@@ -29,6 +29,7 @@
 		"build": "tsc --build tsconfig.json tsconfig.esm.json tsconfig.esnext.json",
 		"watch": "tsc --build --watch tsconfig.json tsconfig.esm.json tsconfig.esnext.json",
 		"test": "tap --ts test/**/*.test.ts",
+		"test:ci": "tap --ts --coverage-report=lcov --no-browser test/**/*.test.ts",
 		"test:watch": "tap --ts -w test/**/*.test.ts",
 		"docs": "typedoc",
 		"docs:deploy": "gh-pages --dist docs/out",

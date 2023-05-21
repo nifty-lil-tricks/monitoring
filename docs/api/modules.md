@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:6](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/4eb8773/src/decorators/monitor/monitor.ts#L6)
+[src/decorators/monitor/monitor.ts:6](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/43ac84d/src/decorators/monitor/monitor.ts#L6)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:4](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/4eb8773/src/decorators/monitor/monitor.ts#L4)
+[src/decorators/monitor/monitor.ts:4](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/43ac84d/src/decorators/monitor/monitor.ts#L4)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:8](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/4eb8773/src/decorators/monitor/monitor.ts#L8)
+[src/decorators/monitor/monitor.ts:8](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/43ac84d/src/decorators/monitor/monitor.ts#L8)
 
 ## Functions
 
@@ -106,4 +106,4 @@ class Service {
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:47](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/4eb8773/src/decorators/monitor/monitor.ts#L47)
+[src/decorators/monitor/monitor.ts:47](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/43ac84d/src/decorators/monitor/monitor.ts#L47)

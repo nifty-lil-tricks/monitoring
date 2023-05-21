@@ -1,7 +1,7 @@
 {
 	"name": "@nifty-lil-tricks/monitoring",
 	"description": "Nifty lil monitoring utilities",
-	"version": "0.1.0",
+	"version": "0.0.0",
 	"author": "Jonny Green",
 	"license": "MIT",
 	"repository": "jonnydgreen/nifty-lil-tricks-monitoring",
@@ -32,6 +32,7 @@
 		"pre-commit": "npm run lint && npm run format:check && npm run build && npm run test"
 	},
 	"files": [
+		"docs/**/*",
 		"src/**/*.ts",
 		"test/**/*.ts",
 		"examples/**/*.ts",

@@ -30,12 +30,14 @@ jobs:
         run: npm run build
 
       - name: Test
-        run: npm run test
+        run: npm run test:ci
 
       - name: Upload coverage reports to Codecov
         # Only upload coverage reports once
         if: matrix.os == 'ubuntu-latest' && matrix.node-version == '20.x'
         uses: codecov/codecov-action@v3
+        with:
+          directory: ./coverage
 
   automerge:
     needs: test

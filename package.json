@@ -1,10 +1,17 @@
 {
 	"name": "@nifty-lil-tricks/monitoring",
-	"description": "Nifty lil monitoring utilities",
+	"description": "A selection of useful utilities for all things monitoring and OpenTelemetry",
 	"version": "0.1.0",
-	"author": "Jonny Green",
+	"author": "Jonny Green <hello@jonnydgreen.com>",
 	"license": "MIT",
-	"repository": "jonnydgreen/nifty-lil-tricks-monitoring",
+	"repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jonnydgreen/nifty-lil-tricks-monitoring.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/issues"
+  },
+  "homepage": "https://github.com/jonnydgreen/nifty-lil-tricks-monitoring",
 	"keywords": [
 		"monitoring",
 		"opentelemetry",
@@ -14,6 +21,9 @@
 	"main": "build/src/index.js",
 	"module": "build/esm/src/index.js",
 	"types": "build/src/index.d.ts",
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"clean": "tsc --build --clean tsconfig.json tsconfig.esm.json tsconfig.esnext.json",
 		"build": "tsc --build tsconfig.json tsconfig.esm.json tsconfig.esnext.json",
@@ -31,20 +41,6 @@
 		"format": "rome format . --write",
 		"pre-commit": "npm run lint && npm run format:check && npm run build && npm run test"
 	},
-	"files": [
-		"docs/**/*",
-		"src/**/*.ts",
-		"test/**/*.ts",
-		"examples/**/*.ts",
-		"build/esm/**/*.js",
-		"build/esm/**/*.js.map",
-		"build/esm/**/*.d.ts",
-		"build/src/**/*.js",
-		"build/src/**/*.js.map",
-		"build/src/**/*.d.ts",
-		"LICENSE",
-		"README.md"
-	],
 	"dependencies": {
 		"@opentelemetry/api": "^1.4.1"
 	},

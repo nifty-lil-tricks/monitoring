@@ -5,7 +5,7 @@
 [![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/jonnydgreen/nifty-lil-tricks-monitoring)
 [![codecov](https://codecov.io/gh/jonnydgreen/nifty-lil-tricks-monitoring/branch/main/graph/badge.svg)](https://codecov.io/gh/jonnydgreen/nifty-lil-tricks-monitoring)
 
-A selection of useful utilities for all things monitoring and
+A selection of useful utilities (or nifty li'l tricks!) for all things monitoring and
 [OpenTelemetry](https://opentelemetry.io/).
 
 ## Installation
@@ -319,7 +319,7 @@ To run the `examples/basic.ts` example, run the following:
 
 ## License
 
-Nifty lil tricks packages are 100% free and open-source, under the
+Nifty li'l tricks packages are 100% free and open-source, under the
 [MIT license](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/LICENSE).
 
 This package is [Treeware](https://treeware.earth). If you use it in production,

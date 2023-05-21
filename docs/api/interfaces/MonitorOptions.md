@@ -8,6 +8,7 @@
 
 - [allowedMethods](MonitorOptions.md#allowedmethods)
 - [className](MonitorOptions.md#classname)
+- [spanKind](MonitorOptions.md#spankind)
 - [tracerName](MonitorOptions.md#tracername)
 
 ## Properties
@@ -16,12 +17,12 @@
 
 • `Optional` **allowedMethods**: `RegExp` \| `string`[] \| (`method`: `string`) => `boolean`
 
-List of methods, regex or function filter that determines which methods will be monitored.
+List of methods, regex or function filter that determines an allow-list for methods which will be monitored.
 By default, all non-private methods will be monitored.
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:22](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/be65d70/src/decorators/monitor/monitor.ts#L22)
+[src/decorators/monitor/monitor.ts:23](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/4eb8773/src/decorators/monitor/monitor.ts#L23)
 
 ___
 
@@ -33,7 +34,19 @@ Name of the class to be monitored. If not provided, the class name will be autom
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:13](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/be65d70/src/decorators/monitor/monitor.ts#L13)
+[src/decorators/monitor/monitor.ts:14](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/4eb8773/src/decorators/monitor/monitor.ts#L14)
+
+___
+
+### spanKind
+
+• `Optional` **spanKind**: `SpanKind`
+
+The Span Kind to be used for the span. If not provided, the default span kind of `INTERNAL` will be used.
+
+#### Defined in
+
+[src/decorators/monitor/monitor.ts:27](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/4eb8773/src/decorators/monitor/monitor.ts#L27)
 
 ___
 
@@ -45,4 +58,4 @@ Name of the tracer to be used. If not provided, the default tracer will be used.
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:17](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/be65d70/src/decorators/monitor/monitor.ts#L17)
+[src/decorators/monitor/monitor.ts:18](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/4eb8773/src/decorators/monitor/monitor.ts#L18)

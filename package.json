@@ -1,7 +1,7 @@
 {
 	"name": "@nifty-lil-tricks/monitoring",
 	"description": "Nifty lil monitoring utilities",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"author": "Jonny Green",
 	"license": "MIT",
 	"repository": "jonnydgreen/nifty-lil-tricks-monitoring",

@@ -1,7 +1,7 @@
 {
   "name": "@nifty-lil-tricks/monitoring",
   "description": "A selection of useful utilities (or nifty li'l tricks!) for all things monitoring and OpenTelemetry",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "author": "Jonny Green <hello@jonnydgreen.com>",
   "license": "MIT",
   "repository": {

@@ -1,3 +1,9 @@
+### 1.0.0 / 2023.10.30
+
+- Fix bump version (#3)
+- Fix permissions issue with bump version script
+- Refactor release process (#2)
+
 ### 0.1.3 / 2023.5.21
 
 - Add Codecov integration

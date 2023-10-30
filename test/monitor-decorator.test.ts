@@ -1,3 +1,5 @@
+// Copyright 2023-2023 the Nifty li'l' tricks authors. All rights reserved. MIT license.
+
 import { SpanKind, SpanStatusCode, context, trace } from "@opentelemetry/api";
 import { AsyncLocalStorageContextManager } from "@opentelemetry/context-async-hooks";
 import { ExportResultCode, type ExportResult } from "@opentelemetry/core";

@@ -1,0 +1,47 @@
+name: version_bump
+
+on:
+  workflow_dispatch:
+    inputs:
+      releaseKind:
+        description: 'Kind of version bump'
+        default: 'minor'
+        type: choice
+        options:
+        - patch
+        - minor
+        - major
+        required: true
+
+jobs:
+  build:
+    name: version bump
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v1
+
+      - name: Run version bump
+        run: |
+          git remote add upstream https://github.com/jonnydgreen/nifty-lil-tricks-monitoring
+          ./_tools/release_bump_version.ts --${{github.event.inputs.releaseKind}}
+
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.JONNYDGREEN_BOT_APP_ID }}
+          private-key: ${{ secrets.JONNYDGREEN_BOT_PRIVATE_KEY }}
+
+      - name: Create PR
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_WORKFLOW_ACTOR: ${{ github.actor }}
+        run: |
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git config user.name "${{ github.actor }}"
+          ./_tools/release_create_pr.ts

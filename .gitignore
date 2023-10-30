@@ -6,3 +6,5 @@ build
 .nyc_output
 package-lock.json
 coverage
+.vscode
+deno.lock

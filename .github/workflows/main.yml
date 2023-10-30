@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Set up Deno
+        uses: denoland/setup-deno@v1
+
       - name: Install dependencies
         run: npm install --no-scripts
 
@@ -38,6 +41,27 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           directory: ./coverage
+
+      - name: Create app token
+        uses: actions/create-github-app-token@v1
+        id: app-token
+        if: |
+          github.repository == 'jonnydgreen/nifty-lil-tricks-monitoring' &&
+          github.ref == 'refs/heads/main'
+        with:
+          app-id: ${{ secrets.JONNYDGREEN_BOT_APP_ID }}
+          private-key: ${{ secrets.JONNYDGREEN_BOT_PRIVATE_KEY }}
+  
+      - name: Release if version change
+        shell: bash
+        if: |
+          github.repository == 'jonnydgreen/nifty-lil-tricks-monitoring' &&
+          github.ref == 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: ./_tools/release.ts
+  
 
   automerge:
     needs: test

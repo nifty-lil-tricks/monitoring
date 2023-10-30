@@ -9,6 +9,10 @@ To install the hooks, run the following command:
 git config core.hooksPath .githooks
 ```
 
+Ensure the following are installed:
+ - [Deno](https://docs.deno.com/runtime/manual/getting_started/installation) (we will eventually move to this dependency)
+ - [Node.js](https://nodejs.org/en/download)
+
 ## Set-up and testing
 
 To get started, clone the repo and install the dependencies:

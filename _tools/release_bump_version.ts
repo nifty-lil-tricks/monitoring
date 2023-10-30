@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run --allow-read --allow-write --allow-run=git,npm --no-check
+#!/usr/bin/env -S deno run --allow-read --allow-write --allow-run=git,deno --no-check
 
 // Copyright 2023-2023 the Nifty li'l' tricks authors. All rights reserved. MIT license.
 

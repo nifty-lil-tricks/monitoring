@@ -22,7 +22,7 @@ By default, all non-private methods will be monitored.
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:23](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/43ac84d/src/decorators/monitor/monitor.ts#L23)
+[src/decorators/monitor/monitor.ts:25](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/44e2324/src/decorators/monitor/monitor.ts#L25)
 
 ___
 
@@ -34,7 +34,7 @@ Name of the class to be monitored. If not provided, the class name will be autom
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:14](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/43ac84d/src/decorators/monitor/monitor.ts#L14)
+[src/decorators/monitor/monitor.ts:16](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/44e2324/src/decorators/monitor/monitor.ts#L16)
 
 ___
 
@@ -46,7 +46,7 @@ The Span Kind to be used for the span. If not provided, the default span kind of
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:27](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/43ac84d/src/decorators/monitor/monitor.ts#L27)
+[src/decorators/monitor/monitor.ts:29](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/44e2324/src/decorators/monitor/monitor.ts#L29)
 
 ___
 
@@ -58,4 +58,4 @@ Name of the tracer to be used. If not provided, the default tracer will be used.
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:18](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/43ac84d/src/decorators/monitor/monitor.ts#L18)
+[src/decorators/monitor/monitor.ts:20](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/44e2324/src/decorators/monitor/monitor.ts#L20)

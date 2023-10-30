@@ -10,14 +10,14 @@
 		},
 		"ignore": [
 			"build/*", "dist/*", "node_modules/*", "vendor/*", ".nyc_output",
-			"coverage"
+			"coverage", "_tools/*"
 		]
 	},
 	"formatter": {
 		"enabled": true,
 		"ignore": [
 			"build/*", "dist/*", "node_modules/*", "vendor/*", ".nyc_output",
-			"coverage"
+			"coverage", "_tools/*"
 		]
 	}
 }

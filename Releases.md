@@ -1,8 +1,12 @@
-### 1.0.0 / 2023.10.30
+### 2.0.0 / 2023.10.30
 
 - Fix bump version (#3)
 - Fix permissions issue with bump version script
 - Refactor release process (#2)
+
+### 1.0.0 / 2023.10.30
+
+<!-- TODO: this will be the legacy app -->
 
 ### 0.1.3 / 2023.5.21
 

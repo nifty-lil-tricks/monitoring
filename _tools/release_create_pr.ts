@@ -35,7 +35,7 @@ console.log(`Opened PR at ${openedPr.data.url}`);
 function getPrBody() {
   let text = `Bumped version for ${newVersion}\n\n` +
     `Please ensure:\n` +
-    `- [ ] Version in version.ts is updated correctly\n` +
+    `- [ ] Version in package.json is updated correctly\n` +
     `- [ ] Releases.md is updated correctly\n` +
     `- [ ] All the tests in this branch have been run against the release being done\n` +
     "     ```shell\n" +

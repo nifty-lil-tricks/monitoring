@@ -1,3 +1,10 @@
+### 0.2.0 / 2023.11.22
+
+- Add support for legacy decorators (#5)
+- Fix bump version (#3)
+- Fix permissions issue with bump version script
+- Refactor release process (#2)
+
 ### 0.1.3 / 2023.5.21
 
 - Add Codecov integration

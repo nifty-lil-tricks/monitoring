@@ -147,7 +147,10 @@ export class MonitorMethod<Method extends GenericFunction> {
 			} catch (error: unknown) {
 				monitorThis.#onError(inputs, span, error);
 				throw error;
+				// There appears to be a weird bug in the coverage report, so adding this here for now
+				/* c8 ignore start */
 			} finally {
+				/* c8 ignore stop */
 				if (!isPromise(result)) {
 					monitorThis.#cleanup(inputs, span);
 				}

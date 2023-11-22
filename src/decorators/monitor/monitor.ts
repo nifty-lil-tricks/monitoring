@@ -47,10 +47,17 @@ export interface MonitorOptions {
  * ```
  */
 export function Monitor(options?: MonitorOptions) {
-	return function actualDecorator(
+	function actualDecorator(
 		target: Function,
-		_context: ClassDecoratorContext,
-	): void {
+		context: ClassDecoratorContext,
+	): void;
+	function actualDecorator<TFunction extends Function>(
+		target: TFunction,
+	): TFunction | void;
+	function actualDecorator<TFunction extends Function>(
+		target: TFunction,
+		_context?: ClassDecoratorContext,
+	): TFunction | void {
 		for (const propertyName of Object.getOwnPropertyNames(target.prototype)) {
 			const descriptor = Object.getOwnPropertyDescriptor(
 				target.prototype,
@@ -74,5 +81,6 @@ export function Monitor(options?: MonitorOptions) {
 				Object.defineProperty(target.prototype, propertyName, descriptor);
 			}
 		}
-	};
+	}
+	return actualDecorator;
 }

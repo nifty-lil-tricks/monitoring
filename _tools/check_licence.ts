@@ -15,6 +15,7 @@ const EXCLUDED_DIRS = [
   "**/sandbox",
   "**/build",
   "**/coverage",
+  "**/.tap",
 ];
 
 const ROOT = new URL("../", import.meta.url);

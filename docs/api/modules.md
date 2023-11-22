@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:8](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/e2851dd/src/decorators/monitor/monitor.ts#L8)
+[src/decorators/monitor/monitor.ts:8](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/354c6e2/src/decorators/monitor/monitor.ts#L8)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:6](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/e2851dd/src/decorators/monitor/monitor.ts#L6)
+[src/decorators/monitor/monitor.ts:6](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/354c6e2/src/decorators/monitor/monitor.ts#L6)
 
 ___
 
@@ -56,13 +56,13 @@ ___
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:10](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/e2851dd/src/decorators/monitor/monitor.ts#L10)
+[src/decorators/monitor/monitor.ts:10](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/354c6e2/src/decorators/monitor/monitor.ts#L10)
 
 ## Functions
 
 ### Monitor
 
-▸ **Monitor**(`options?`): (`target`: `Function`, `_context`: `ClassDecoratorContext`<(...`args`: `any`) => `any`\>) => `void`
+▸ **Monitor**(`options?`): (`target`: `Function`, `context`: `ClassDecoratorContext`<(...`args`: `any`) => `any`\>) => `void`<TFunction\>(`target`: `TFunction`) => `TFunction` \| `void`
 
 Decorator to monitor a class method.
 By default, it monitors all methods of the class provided
@@ -91,19 +91,37 @@ class Service {
 
 `fn`
 
-▸ (`target`, `_context`): `void`
+▸ (`target`, `context`): `void`
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `target` | `Function` |
-| `_context` | `ClassDecoratorContext`<(...`args`: `any`) => `any`\> |
+| `context` | `ClassDecoratorContext`<(...`args`: `any`) => `any`\> |
 
 ##### Returns
 
 `void`
 
+▸ <`TFunction`\>(`target`): `TFunction` \| `void`
+
+##### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `TFunction` | extends `Function` |
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | `TFunction` |
+
+##### Returns
+
+`TFunction` \| `void`
+
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:49](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/e2851dd/src/decorators/monitor/monitor.ts#L49)
+[src/decorators/monitor/monitor.ts:49](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/354c6e2/src/decorators/monitor/monitor.ts#L49)

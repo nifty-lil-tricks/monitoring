@@ -1,5 +1,11 @@
-name: CI
-on: push
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
 jobs:
   test:
     runs-on: ${{ matrix.os }}

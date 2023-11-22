@@ -5,10 +5,11 @@
 [![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/jonnydgreen/nifty-lil-tricks-monitoring)
 [![codecov](https://codecov.io/gh/jonnydgreen/nifty-lil-tricks-monitoring/branch/main/graph/badge.svg)](https://codecov.io/gh/jonnydgreen/nifty-lil-tricks-monitoring)
 
-**Note: This is an experimental package under active development. New releases may include breaking changes.**
+**Note: This is an experimental package under active development. New releases
+may include breaking changes.**
 
-A selection of useful utilities (or nifty li'l tricks!) for all things monitoring and
-[OpenTelemetry](https://opentelemetry.io/).
+A selection of useful utilities (or nifty li'l tricks!) for all things
+monitoring and [OpenTelemetry](https://opentelemetry.io/).
 
 ## Installation
 
@@ -20,7 +21,8 @@ npm install @nifty-lil-tricks/monitoring
 
 ### Experimental stage 2 decorators
 
-If you are using experimental stage 2 decorators, you will need to set the following in your `tsconfig.json`:
+If you are using experimental stage 2 decorators, you will need to set the
+following in your `tsconfig.json`:
 
 ```json
 {
@@ -300,7 +302,8 @@ class Service {
 
 ## API
 
-The API docs can be found [here](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/docs/api/modules.md)
+The API docs can be found
+[here](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/docs/api/modules.md)
 
 ## Examples
 
@@ -317,6 +320,7 @@ To run the `examples/basic.ts` example, run the following:
 - Navigate to the Jaeger UI: http://localhost:16686
 
 ![Example exported trace](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/raw/main/docs/img/example-basic-export.png)
+
 ## Support
 
 | Platform Version | Supported          | Notes                                                     |

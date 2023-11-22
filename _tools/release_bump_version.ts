@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run --allow-read --allow-write --allow-run=git,deno --no-check
+#!/usr/bin/env -S deno run --allow-read --allow-write --allow-run=git,deno,npx --no-check
 
 // Copyright 2023-2023 the Nifty li'l' tricks authors. All rights reserved. MIT license.
 
@@ -24,6 +24,9 @@ releasesMdFile.updateWithGitLog({
 // run deno fmt
 await repo.runCommandWithOutput(["deno", "fmt", "package.json"]);
 await repo.runCommandWithOutput(["deno", "fmt", "Releases.md"]);
+
+// generate docs
+await repo.runCommandWithOutput(["npx", "typedoc"]);
 
 function getVersionIncrementKind() {
   if (Deno.args.some((a) => a === "--patch")) {

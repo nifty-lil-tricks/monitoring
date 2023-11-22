@@ -32,7 +32,8 @@
 			".nyc_output",
 			"coverage",
 			"_tools",
-			".tap"
+			".tap",
+			"package.json"
 		]
 	}
 }

@@ -10,8 +10,10 @@ git config core.hooksPath .githooks
 ```
 
 Ensure the following are installed:
- - [Deno](https://docs.deno.com/runtime/manual/getting_started/installation) (we will eventually move to this dependency)
- - [Node.js](https://nodejs.org/en/download)
+
+- [Deno](https://docs.deno.com/runtime/manual/getting_started/installation) (we
+  will eventually move to this dependency)
+- [Node.js](https://nodejs.org/en/download)
 
 ## Set-up and testing
 

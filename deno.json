@@ -5,7 +5,7 @@
 		"noImplicitOverride": true
 	},
 	"fmt": {
-		"include": ["_tools/**/*.ts"]
+		"include": ["_tools/**/*.ts", "*.md", "package.json"]
 	},
 	"lint": {
 		"include": ["_tools/**/*.ts"]

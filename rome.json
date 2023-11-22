@@ -9,15 +9,27 @@
 			"recommended": true
 		},
 		"ignore": [
-			"build/*", "dist/*", "node_modules/*", "vendor/*", ".nyc_output",
-			"coverage", "_tools/*", ".tap"
+			"build/*",
+			"dist/*",
+			"node_modules/*",
+			"vendor/*",
+			".nyc_output",
+			"coverage",
+			"_tools/*",
+			".tap"
 		]
 	},
 	"formatter": {
 		"enabled": true,
 		"ignore": [
-			"build/*", "dist/*", "node_modules/*", "vendor/*", ".nyc_output",
-			"coverage", "_tools/*", ".tap"
+			"build/*",
+			"dist/*",
+			"node_modules/*",
+			"vendor/*",
+			".nyc_output",
+			"coverage",
+			"_tools/*",
+			".tap"
 		]
 	}
 }

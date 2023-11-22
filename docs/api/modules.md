@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:8](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/5c5cbb2/src/decorators/monitor/monitor.ts#L8)
+[src/decorators/monitor/monitor.ts:8](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/882ba1a/src/decorators/monitor/monitor.ts#L8)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:6](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/5c5cbb2/src/decorators/monitor/monitor.ts#L6)
+[src/decorators/monitor/monitor.ts:6](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/882ba1a/src/decorators/monitor/monitor.ts#L6)
 
 ___
 
@@ -60,13 +60,13 @@ ___
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:10](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/5c5cbb2/src/decorators/monitor/monitor.ts#L10)
+[src/decorators/monitor/monitor.ts:10](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/882ba1a/src/decorators/monitor/monitor.ts#L10)
 
 ## Functions
 
 ### Monitor
 
-▸ **Monitor**(`options?`): (`target`: `Function`, `context`: `ClassDecoratorContext`\<(...`args`: `any`) => `any`\>) => `void`\<TFunction\>(`target`: `TFunction`) => `TFunction` \| `void`
+▸ **Monitor**(`options?`): (`target`: `Function`, `context`: `ClassDecoratorContext`\<(...`args`: `any`) => `any`\>) => `void`(`target`: `Function`) => `void`
 
 Decorator to monitor a class method.
 By default, it monitors all methods of the class provided
@@ -98,23 +98,17 @@ context of a span.
 
 `void`
 
-▸ \<`TFunction`\>(`target`): `TFunction` \| `void`
-
-##### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `TFunction` | extends `Function` |
+▸ (`target`): `void`
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `target` | `TFunction` |
+| `target` | `Function` |
 
 ##### Returns
 
-`TFunction` \| `void`
+`void`
 
 **`Examples`**
 
@@ -128,4 +122,4 @@ class Service {
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:49](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/5c5cbb2/src/decorators/monitor/monitor.ts#L49)
+[src/decorators/monitor/monitor.ts:52](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/882ba1a/src/decorators/monitor/monitor.ts#L52)

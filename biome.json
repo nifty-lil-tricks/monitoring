@@ -1,0 +1,38 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.3.3/schema.json",
+	"organizeImports": {
+		"enabled": true
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"complexity": {
+				"noForEach": "off"
+			}
+		},
+		"ignore": [
+			"build",
+			"dist",
+			"node_modules",
+			"vendor",
+			".nyc_output",
+			"coverage",
+			"_tools",
+			".tap"
+		]
+	},
+	"formatter": {
+		"enabled": true,
+		"ignore": [
+			"build",
+			"dist",
+			"node_modules",
+			"vendor",
+			".nyc_output",
+			"coverage",
+			"_tools",
+			".tap"
+		]
+	}
+}

@@ -1,14 +1,14 @@
 // Copyright 2023-2023 the Nifty li'l' tricks authors. All rights reserved. MIT license.
 
 import {
+	Context,
 	type Span,
+	SpanKind,
+	SpanOptions,
+	SpanStatusCode,
+	context,
 	diag,
 	trace,
-	context,
-	SpanOptions,
-	Context,
-	SpanStatusCode,
-	SpanKind,
 } from "@opentelemetry/api";
 
 function isPromise<Return>(p: Promise<Return> | Return): p is Promise<Return> {
@@ -38,7 +38,7 @@ export interface MonitorMethodMetadata {
 	spanKind: SpanKind;
 }
 
-// rome-ignore lint/suspicious/noExplicitAny: genuine function definition
+// biome-ignore lint/suspicious/noExplicitAny: genuine function definition
 export type GenericFunction = (...args: any[]) => any;
 
 export interface MonitorMethodCallInputs<Method extends GenericFunction> {

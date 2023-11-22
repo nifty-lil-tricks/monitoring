@@ -1,22 +1,22 @@
 // Copyright 2023-2023 the Nifty li'l' tricks authors. All rights reserved. MIT license.
 
+import { promisify } from "node:util";
 import {
-	context,
-	diag,
 	DiagConsoleLogger,
 	DiagLogLevel,
+	context,
+	diag,
 	trace,
 } from "@opentelemetry/api";
 import { AsyncLocalStorageContextManager } from "@opentelemetry/context-async-hooks";
+import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-proto";
 import { Resource } from "@opentelemetry/resources";
 import {
 	BasicTracerProvider,
 	ConsoleSpanExporter,
 	SimpleSpanProcessor,
 } from "@opentelemetry/sdk-trace-base";
-import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-proto";
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
-import { promisify } from "node:util";
 import { Monitor } from "../src";
 
 // Setting the default Global logger to use the Console

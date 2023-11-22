@@ -18,6 +18,23 @@ A selection of useful utilities (or nifty li'l tricks!) for all things monitorin
 npm install @nifty-lil-tricks/monitoring
 ```
 
+### Experimental stage 2 decorators
+
+If you are using experimental stage 2 decorators, you will need to set the following in your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  }
+}
+```
+
+### Stage 3 decorators
+
+No setup is required.
+
 ## Features
 
 The following features are supported

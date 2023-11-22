@@ -2,7 +2,7 @@
 
 import { SpanKind, SpanStatusCode, context, trace } from "@opentelemetry/api";
 import { AsyncLocalStorageContextManager } from "@opentelemetry/context-async-hooks";
-import { ExportResultCode, type ExportResult } from "@opentelemetry/core";
+import { type ExportResult, ExportResultCode } from "@opentelemetry/core";
 import { Resource } from "@opentelemetry/resources";
 import {
 	BasicTracerProvider,
@@ -408,8 +408,7 @@ t.test("Monitor", (t) => {
 	t.test("should override the inferred class name if provided", async (t) => {
 		// Act
 		const serviceClassName = "ServiceOverride";
-		@Monitor({ className: serviceClassName })
-		class Service {
+		@Monitor({ className: serviceClassName }) class Service {
 			method(): void {}
 		}
 		const service = new Service();
@@ -435,8 +434,7 @@ t.test("Monitor", (t) => {
 	t.test("should override the span kind if provided", async (t) => {
 		// Act
 		const spanKind = SpanKind.SERVER;
-		@Monitor({ spanKind: SpanKind.SERVER })
-		class Service {
+		@Monitor({ spanKind: SpanKind.SERVER }) class Service {
 			method(): void {}
 		}
 		const service = new Service();
@@ -463,8 +461,7 @@ t.test("Monitor", (t) => {
 	t.test("should override the default tracer if provided", async (t) => {
 		// Act
 		const tracerName = "another-tracer";
-		@Monitor({ tracerName })
-		class Service {
+		@Monitor({ tracerName }) class Service {
 			method(): void {}
 		}
 		const tracer = trace.getTracer(tracerName);
@@ -538,8 +535,7 @@ t.test("Monitor", (t) => {
 	].forEach(({ test, allowedMethods }) => {
 		t.test(test, async (t) => {
 			// Arrange
-			@Monitor({ allowedMethods })
-			class Service {
+			@Monitor({ allowedMethods }) class Service {
 				notAllowed(): void {}
 
 				allowedNested(): void {}

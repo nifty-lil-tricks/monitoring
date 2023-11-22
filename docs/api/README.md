@@ -7,6 +7,8 @@
 [![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/jonnydgreen/nifty-lil-tricks-monitoring)
 [![codecov](https://codecov.io/gh/jonnydgreen/nifty-lil-tricks-monitoring/branch/main/graph/badge.svg)](https://codecov.io/gh/jonnydgreen/nifty-lil-tricks-monitoring)
 
+**Note: This is an experimental package under active development. New releases may include breaking changes.**
+
 A selection of useful utilities (or nifty li'l tricks!) for all things monitoring and
 [OpenTelemetry](https://opentelemetry.io/).
 
@@ -14,12 +16,26 @@ A selection of useful utilities (or nifty li'l tricks!) for all things monitorin
 
 **Note: this package works with TypeScript v5 or later**
 
-**`@opentelemetry/api` package is a peer-dependency, and it should be installed
-separately.**
-
 ```shell
-npm install @nifty-lil-tricks/monitoring @opentelemetry/api
+npm install @nifty-lil-tricks/monitoring
 ```
+
+### Experimental stage 2 decorators
+
+If you are using experimental stage 2 decorators, you will need to set the following in your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  }
+}
+```
+
+### Stage 3 decorators
+
+No setup is required.
 
 ## Features
 
@@ -300,6 +316,7 @@ To run the `examples/basic.ts` example, run the following:
 - Ensure [Docker](https://www.docker.com/) is running
 - Start the Jaeger collector: `npm run start:collector`
 - Run the example: `npm run example:basic`
+- Navigate to the Jaeger UI: http://localhost:16686
 
 ![Example exported trace](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/raw/main/docs/img/example-basic-export.png)
 ## Support

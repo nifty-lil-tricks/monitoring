@@ -8,3 +8,4 @@ package-lock.json
 coverage
 .vscode
 deno.lock
+.tap

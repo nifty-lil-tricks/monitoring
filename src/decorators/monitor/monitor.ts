@@ -9,6 +9,9 @@ export type Constructor = new (...args: unknown[]) => unknown;
 
 export type Target = Record<string, unknown>;
 
+// biome-ignore lint/complexity/noBannedTypes: This is acceptable here because it is not exported and part of the decorator definition
+type Fn = Function;
+
 export interface MonitorOptions {
 	/**
 	 * Name of the class to be monitored. If not provided, the class name will be automatically inferred.
@@ -47,10 +50,9 @@ export interface MonitorOptions {
  * ```
  */
 export function Monitor(options?: MonitorOptions) {
-	return function actualDecorator(
-		target: Function,
-		_context: ClassDecoratorContext,
-	): void {
+	function actualDecorator(target: Fn, context: ClassDecoratorContext): void;
+	function actualDecorator(target: Fn): void;
+	function actualDecorator(target: Fn, _context?: ClassDecoratorContext): void {
 		for (const propertyName of Object.getOwnPropertyNames(target.prototype)) {
 			const descriptor = Object.getOwnPropertyDescriptor(
 				target.prototype,
@@ -74,5 +76,6 @@ export function Monitor(options?: MonitorOptions) {
 				Object.defineProperty(target.prototype, propertyName, descriptor);
 			}
 		}
-	};
+	}
+	return actualDecorator;
 }

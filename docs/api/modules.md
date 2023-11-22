@@ -26,7 +26,7 @@
 
 #### Type declaration
 
-• (`...args`)
+• (`...args`): `unknown`
 
 ##### Parameters
 
@@ -34,9 +34,13 @@
 | :------ | :------ |
 | `...args` | `unknown`[] |
 
+##### Returns
+
+`unknown`
+
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:8](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/354c6e2/src/decorators/monitor/monitor.ts#L8)
+[src/decorators/monitor/monitor.ts:8](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/dcbf361/src/decorators/monitor/monitor.ts#L8)
 
 ___
 
@@ -46,23 +50,23 @@ ___
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:6](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/354c6e2/src/decorators/monitor/monitor.ts#L6)
+[src/decorators/monitor/monitor.ts:6](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/dcbf361/src/decorators/monitor/monitor.ts#L6)
 
 ___
 
 ### Target
 
-Ƭ **Target**: `Record`<`string`, `unknown`\>
+Ƭ **Target**: `Record`\<`string`, `unknown`\>
 
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:10](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/354c6e2/src/decorators/monitor/monitor.ts#L10)
+[src/decorators/monitor/monitor.ts:10](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/dcbf361/src/decorators/monitor/monitor.ts#L10)
 
 ## Functions
 
 ### Monitor
 
-▸ **Monitor**(`options?`): (`target`: `Function`, `context`: `ClassDecoratorContext`<(...`args`: `any`) => `any`\>) => `void`<TFunction\>(`target`: `TFunction`) => `TFunction` \| `void`
+▸ **Monitor**(`options?`): (`target`: `Function`, `context`: `ClassDecoratorContext`\<(...`args`: `any`) => `any`\>) => `void`\<TFunction\>(`target`: `TFunction`) => `TFunction` \| `void`
 
 Decorator to monitor a class method.
 By default, it monitors all methods of the class provided
@@ -70,16 +74,6 @@ they are in the context of a span. Nested calls will use the newly
 context for the method in question.
 It will **not** monitor methods if they not called in the
 context of a span.
-
-**`Examples`**
-
-```typescript
-\@Monitor()
-class Service {
-  // This method will be monitored
-  hello(): void {}
-}
-```
 
 #### Parameters
 
@@ -98,13 +92,13 @@ class Service {
 | Name | Type |
 | :------ | :------ |
 | `target` | `Function` |
-| `context` | `ClassDecoratorContext`<(...`args`: `any`) => `any`\> |
+| `context` | `ClassDecoratorContext`\<(...`args`: `any`) => `any`\> |
 
 ##### Returns
 
 `void`
 
-▸ <`TFunction`\>(`target`): `TFunction` \| `void`
+▸ \<`TFunction`\>(`target`): `TFunction` \| `void`
 
 ##### Type parameters
 
@@ -122,6 +116,16 @@ class Service {
 
 `TFunction` \| `void`
 
+**`Examples`**
+
+```typescript
+\@Monitor()
+class Service {
+  // This method will be monitored
+  hello(): void {}
+}
+```
+
 #### Defined in
 
-[src/decorators/monitor/monitor.ts:49](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/354c6e2/src/decorators/monitor/monitor.ts#L49)
+[src/decorators/monitor/monitor.ts:49](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/dcbf361/src/decorators/monitor/monitor.ts#L49)

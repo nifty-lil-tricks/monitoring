@@ -1,3 +1,12 @@
+### 0.2.0 / 2023.11.23
+
+- Add docs to bump version (#7)
+- Add support for legacy decorators (#5)
+- Fix bump version (#3)
+- Fix permissions issue with bump version script
+- Install npm in bump version (#8)
+- Refactor release process (#2)
+
 ### 0.1.3 / 2023.5.21
 
 - Add Codecov integration

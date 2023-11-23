@@ -51,7 +51,7 @@ async function publishNpm(): Promise<void> {
   const pkgName = "@nifty-lil-tricks/monitoring";
   console.log(`Publishing ${pkgName} to npm...`);
   const command = new Deno.Command("npm", {
-    args: ["publish", "--access", "public"],
+    args: ["publish", "--access", "public", "--dry-run"],
   });
   const output = await command.output();
   if (!output.success) {

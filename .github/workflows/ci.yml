@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test]
     if: |
-      github.repository == 'jonnydgreen/nifty-lil-tricks-testing' &&
+      github.repository == 'jonnydgreen/nifty-lil-tricks-monitoring' &&
       github.ref == 'refs/heads/main'
 
     steps:

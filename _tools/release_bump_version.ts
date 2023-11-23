@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run --allow-read --allow-write --allow-run=git,deno,npx --no-check
+#!/usr/bin/env -S deno run --allow-read --allow-write --allow-run=git,deno,npx,npm --no-check
 
 // Copyright 2023-2023 the Nifty li'l' tricks authors. All rights reserved. MIT license.
 
@@ -26,6 +26,7 @@ await repo.runCommandWithOutput(["deno", "fmt", "package.json"]);
 await repo.runCommandWithOutput(["deno", "fmt", "Releases.md"]);
 
 // generate docs
+await repo.runCommandWithOutput(["npm", "install", "--no-scripts"]);
 await repo.runCommandWithOutput(["npx", "typedoc"]);
 
 function getVersionIncrementKind() {

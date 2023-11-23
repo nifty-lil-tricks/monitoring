@@ -11,6 +11,17 @@ may include breaking changes.**
 A selection of useful utilities (or nifty li'l tricks!) for all things
 monitoring and [OpenTelemetry](https://opentelemetry.io/).
 
+## Table of contents
+
+- [Installation](#installation)
+- [Features](#features)
+- [API](#api)
+- [Examples](#examples)
+- [Support](#support)
+- [Useful links](#useful-links)
+- [License](#license)
+- [Contributions](#contributions)
+
 ## Installation
 
 **Note: this package works with TypeScript v5 or later**
@@ -48,14 +59,34 @@ The following features are supported
 
 ### Monitoring Decorator
 
-- [Monitoring Decorator Overview](#monitoring-decorator-overview)
-- [Pre-requisites](#pre-requisites)
-- [Wrap all methods of a class in a span](#wrap-all-methods-of-a-class-in-a-span)
-- [Filter allowed methods to monitor](#filter-allowed-methods-to-monitor)
-- [Override the default Span kind](#override-the-default-span-kind)
-- [Override the inferred class name](#override-the-inferred-class-name)
-- [Override the default tracer name](#override-the-default-tracer-name) -
-  [Caveats](#caveats)
+- [@nifty-lil-tricks/monitoring](#nifty-lil-tricksmonitoring)
+  - [Table of contents](#table-of-contents)
+  - [Installation](#installation)
+    - [Experimental stage 2 decorators](#experimental-stage-2-decorators)
+    - [Stage 3 decorators](#stage-3-decorators)
+  - [Features](#features)
+    - [Monitoring Decorator](#monitoring-decorator)
+      - [Monitoring Decorator Overview](#monitoring-decorator-overview)
+        - [Exported span for method that passes](#exported-span-for-method-that-passes)
+        - [Exported span for method that throws](#exported-span-for-method-that-throws)
+      - [Pre-requisites](#pre-requisites)
+      - [Wrap all methods of a class in a span](#wrap-all-methods-of-a-class-in-a-span)
+      - [Filter allowed methods to monitor](#filter-allowed-methods-to-monitor)
+        - [Filtering monitored methods by list of strings](#filtering-monitored-methods-by-list-of-strings)
+        - [Filtering monitored methods by regex](#filtering-monitored-methods-by-regex)
+        - [Filtering monitored methods by function](#filtering-monitored-methods-by-function)
+      - [Override the default Span kind](#override-the-default-span-kind)
+      - [Override the inferred class name](#override-the-inferred-class-name)
+      - [Override the default tracer name](#override-the-default-tracer-name)
+      - [Caveats](#caveats)
+  - [API](#api)
+  - [Examples](#examples)
+    - [Basic example](#basic-example)
+    - [Nestjs example](#nestjs-example)
+  - [Support](#support)
+  - [Useful links](#useful-links)
+  - [License](#license)
+  - [Contributions](#contributions)
 
 #### Monitoring Decorator Overview
 
@@ -308,7 +339,7 @@ The API docs can be found
 ## Examples
 
 Examples can be found
-[here](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/examples/basic.ts).
+[here](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/examples).
 
 ### Basic example
 
@@ -320,6 +351,18 @@ To run the `examples/basic.ts` example, run the following:
 - Navigate to the Jaeger UI: http://localhost:16686
 
 ![Example exported trace](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/raw/main/docs/img/example-basic-export.png)
+
+### Nestjs example
+
+To run the `examples/basic.ts` example, run the following:
+
+- Ensure [Docker](https://www.docker.com/) is running
+- Start the Jaeger collector: `npm run start:collector`
+- Run the example: `npm run example:nestjs`
+- Make a request to the app: `curl http://localhost:3000/`
+- Navigate to the Jaeger UI: http://localhost:16686
+
+![Example exported trace](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/raw/main/docs/img/example-nestjs-export.png)
 
 ## Support
 

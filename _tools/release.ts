@@ -35,6 +35,7 @@ if (repoTags.has(tagName)) {
   await repo.gitTag(tagName);
   await repo.gitPush("origin", tagName);
 
+  await setupNpm();
   await publishNpm();
 
   console.log(`Creating GitHub release...`);
@@ -45,6 +46,25 @@ if (repoTags.has(tagName)) {
     body: releasesMd.getLatestReleaseText().fullText,
     draft: true,
   });
+}
+
+async function setupNpm(): Promise<void> {
+  console.log(`Setting up npm...`);
+  const command = new Deno.Command("npm", {
+    args: [
+      "set",
+      "--location",
+      "project",
+      "//registry.npmjs.org/:_authToken",
+      "${NPM_TOKEN}",
+    ],
+  });
+  const output = await command.output();
+  if (!output.success) {
+    console.log(`Failed to set up npm.`);
+    console.log("Stderr:", new TextDecoder().decode(output.stderr));
+    Deno.exit(1);
+  }
 }
 
 async function publishNpm(): Promise<void> {

@@ -35,12 +35,10 @@ console.log(`Opened PR at ${openedPr.data.url}`);
 function getPrBody() {
   let text = `Bumped version for ${newVersion}\n\n` +
     `Please ensure:\n` +
-    `- [ ] Version in version.ts is updated correctly\n` +
+    `- [ ] Version in package.json is updated correctly\n` +
     `- [ ] Releases.md is updated correctly\n` +
-    `- [ ] All the tests in this branch have been run against the release being done\n` +
-    "     ```shell\n" +
-    `     npm run test\n` +
-    "     ```\n" +
+    `- [ ] Documentation in \`/docs\` has been updated correctly\n` +
+    `- [ ] All the tests in this branch have passed\n\n` +
     `To make edits to this PR:\n` +
     "```shell\n" +
     `git fetch upstream ${newBranchName} && git checkout -b ${newBranchName} upstream/${newBranchName}\n` +

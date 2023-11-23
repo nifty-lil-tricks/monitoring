@@ -1,0 +1,13 @@
+{
+	"extends": "./tsconfig.base.json",
+	"compilerOptions": {
+		"outDir": "build/legacy",
+		"rootDir": ".",
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true
+	},
+	"files": [],
+	"include": ["src/**/*.ts", "examples/nestjs.ts"],
+	"exclude": [],
+	"references": []
+}

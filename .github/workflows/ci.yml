@@ -63,6 +63,8 @@ jobs:
     if: |
       github.repository == 'nifty-lil-tricks/monitoring' &&
       github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
 
     steps:
       - name: Clone repository

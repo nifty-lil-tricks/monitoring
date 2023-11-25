@@ -3,15 +3,26 @@
 # @nifty-lil-tricks/monitoring
 
 [![Latest Version](https://img.shields.io/npm/v/@nifty-lil-tricks/monitoring?style=flat-square)](https://www.npmjs.com/package/@nifty-lil-tricks/monitoring)
-[![GitHub License](https://img.shields.io/github/license/jonnydgreen/nifty-lil-tricks-monitoring?style=flat-square)](https://raw.githubusercontent.com/jonnydgreen/nifty-lil-tricks-monitoring/main/LICENSE)
-[![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/jonnydgreen/nifty-lil-tricks-monitoring)
-[![codecov](https://codecov.io/gh/jonnydgreen/nifty-lil-tricks-monitoring/branch/main/graph/badge.svg)](https://codecov.io/gh/jonnydgreen/nifty-lil-tricks-monitoring)
+[![GitHub License](https://img.shields.io/github/license/nifty-lil-tricks/monitoring?style=flat-square)](https://raw.githubusercontent.com/nifty-lil-tricks/monitoring/main/LICENSE)
+[![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/nifty-lil-tricks/monitoring)
+[![codecov](https://codecov.io/gh/nifty-lil-tricks/monitoring/branch/main/graph/badge.svg)](https://codecov.io/gh/nifty-lil-tricks/monitoring)
 
 **Note: This is an experimental package under active development. New releases
 may include breaking changes.**
 
 A selection of useful utilities (or nifty li'l tricks!) for all things
 monitoring and [OpenTelemetry](https://opentelemetry.io/).
+
+## Table of contents
+
+- [Installation](#installation)
+- [Features](#features)
+- [API](#api)
+- [Examples](#examples)
+- [Support](#support)
+- [Useful links](#useful-links)
+- [License](#license)
+- [Contributions](#contributions)
 
 ## Installation
 
@@ -50,14 +61,34 @@ The following features are supported
 
 ### Monitoring Decorator
 
-- [Monitoring Decorator Overview](#monitoring-decorator-overview)
-- [Pre-requisites](#pre-requisites)
-- [Wrap all methods of a class in a span](#wrap-all-methods-of-a-class-in-a-span)
-- [Filter allowed methods to monitor](#filter-allowed-methods-to-monitor)
-- [Override the default Span kind](#override-the-default-span-kind)
-- [Override the inferred class name](#override-the-inferred-class-name)
-- [Override the default tracer name](#override-the-default-tracer-name) -
-  [Caveats](#caveats)
+- [@nifty-lil-tricks/monitoring](#nifty-lil-tricksmonitoring)
+  - [Table of contents](#table-of-contents)
+  - [Installation](#installation)
+    - [Experimental stage 2 decorators](#experimental-stage-2-decorators)
+    - [Stage 3 decorators](#stage-3-decorators)
+  - [Features](#features)
+    - [Monitoring Decorator](#monitoring-decorator)
+      - [Monitoring Decorator Overview](#monitoring-decorator-overview)
+        - [Exported span for method that passes](#exported-span-for-method-that-passes)
+        - [Exported span for method that throws](#exported-span-for-method-that-throws)
+      - [Pre-requisites](#pre-requisites)
+      - [Wrap all methods of a class in a span](#wrap-all-methods-of-a-class-in-a-span)
+      - [Filter allowed methods to monitor](#filter-allowed-methods-to-monitor)
+        - [Filtering monitored methods by list of strings](#filtering-monitored-methods-by-list-of-strings)
+        - [Filtering monitored methods by regex](#filtering-monitored-methods-by-regex)
+        - [Filtering monitored methods by function](#filtering-monitored-methods-by-function)
+      - [Override the default Span kind](#override-the-default-span-kind)
+      - [Override the inferred class name](#override-the-inferred-class-name)
+      - [Override the default tracer name](#override-the-default-tracer-name)
+      - [Caveats](#caveats)
+  - [API](#api)
+  - [Examples](#examples)
+    - [Basic example](#basic-example)
+    - [Nestjs example](#nestjs-example)
+  - [Support](#support)
+  - [Useful links](#useful-links)
+  - [License](#license)
+  - [Contributions](#contributions)
 
 #### Monitoring Decorator Overview
 
@@ -305,12 +336,12 @@ class Service {
 ## API
 
 The API docs can be found
-[here](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/docs/api/modules.md)
+[here](https://github.com/nifty-lil-tricks/monitoring/blob/main/docs/api/modules.md)
 
 ## Examples
 
 Examples can be found
-[here](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/examples/basic.ts).
+[here](https://github.com/nifty-lil-tricks/monitoring/blob/main/examples).
 
 ### Basic example
 
@@ -321,7 +352,19 @@ To run the `examples/basic.ts` example, run the following:
 - Run the example: `npm run example:basic`
 - Navigate to the Jaeger UI: http://localhost:16686
 
-![Example exported trace](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/raw/main/docs/img/example-basic-export.png)
+![Example exported trace](https://github.com/nifty-lil-tricks/monitoring/raw/main/docs/img/example-basic-export.png)
+
+### Nestjs example
+
+To run the `examples/basic.ts` example, run the following:
+
+- Ensure [Docker](https://www.docker.com/) is running
+- Start the Jaeger collector: `npm run start:collector`
+- Run the example: `npm run example:nestjs`
+- Make a request to the app: `curl http://localhost:3000/`
+- Navigate to the Jaeger UI: http://localhost:16686
+
+![Example exported trace](https://github.com/nifty-lil-tricks/monitoring/raw/main/docs/img/example-nestjs-export.png)
 
 ## Support
 
@@ -338,27 +381,27 @@ To run the `examples/basic.ts` example, run the following:
 - For more about OpenTelemetry JavaScript:
   https://github.com/open-telemetry/opentelemetry-js
 - For help or feedback on this project, join us in
-  [GitHub Discussions](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/discussions)
+  [GitHub Discussions](https://github.com/nifty-lil-tricks/monitoring/discussions)
 
 ## License
 
 Nifty li'l tricks packages are 100% free and open-source, under the
-[MIT license](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/LICENSE).
+[MIT license](https://github.com/nifty-lil-tricks/monitoring/blob/main/LICENSE).
 
 This package is [Treeware](https://treeware.earth). If you use it in production,
 then we ask that you
-[**buy the world a tree**](https://plant.treeware.earth/jonnydgreen/nifty-lil-tricks-monitoring)
+[**buy the world a tree**](https://plant.treeware.earth/nifty-lil-tricks/monitoring)
 to thank us for our work. By contributing to the Treeware forest you’ll be
 creating employment for local families and restoring wildlife habitats.
 
 ## Contributions
 
-[Contributions](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/CONTRIBUTING.md),
+[Contributions](https://github.com/nifty-lil-tricks/monitoring/blob/main/CONTRIBUTING.md),
 issues and feature requests are very welcome. If you are using this package and
 fixed a bug for yourself, please consider submitting a PR!
 
 <p align="center">
-  <a href="https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=jonnydgreen/nifty-lil-tricks-monitoring&columns=8" />
+  <a href="https://github.com/nifty-lil-tricks/monitoring/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=nifty-lil-tricks/monitoring&columns=8" />
   </a>
 </p>

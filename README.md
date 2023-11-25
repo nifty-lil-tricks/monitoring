@@ -1,9 +1,9 @@
 # @nifty-lil-tricks/monitoring
 
 [![Latest Version](https://img.shields.io/npm/v/@nifty-lil-tricks/monitoring?style=flat-square)](https://www.npmjs.com/package/@nifty-lil-tricks/monitoring)
-[![GitHub License](https://img.shields.io/github/license/jonnydgreen/nifty-lil-tricks-monitoring?style=flat-square)](https://raw.githubusercontent.com/jonnydgreen/nifty-lil-tricks-monitoring/main/LICENSE)
-[![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/jonnydgreen/nifty-lil-tricks-monitoring)
-[![codecov](https://codecov.io/gh/jonnydgreen/nifty-lil-tricks-monitoring/branch/main/graph/badge.svg)](https://codecov.io/gh/jonnydgreen/nifty-lil-tricks-monitoring)
+[![GitHub License](https://img.shields.io/github/license/nifty-lil-tricks/monitoring?style=flat-square)](https://raw.githubusercontent.com/nifty-lil-tricks/monitoring/main/LICENSE)
+[![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/nifty-lil-tricks/monitoring)
+[![codecov](https://codecov.io/gh/nifty-lil-tricks/monitoring/branch/main/graph/badge.svg)](https://codecov.io/gh/nifty-lil-tricks/monitoring)
 
 **Note: This is an experimental package under active development. New releases
 may include breaking changes.**
@@ -334,12 +334,12 @@ class Service {
 ## API
 
 The API docs can be found
-[here](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/docs/api/modules.md)
+[here](https://github.com/nifty-lil-tricks/monitoring/blob/main/docs/api/modules.md)
 
 ## Examples
 
 Examples can be found
-[here](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/examples).
+[here](https://github.com/nifty-lil-tricks/monitoring/blob/main/examples).
 
 ### Basic example
 
@@ -350,7 +350,7 @@ To run the `examples/basic.ts` example, run the following:
 - Run the example: `npm run example:basic`
 - Navigate to the Jaeger UI: http://localhost:16686
 
-![Example exported trace](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/raw/main/docs/img/example-basic-export.png)
+![Example exported trace](https://github.com/nifty-lil-tricks/monitoring/raw/main/docs/img/example-basic-export.png)
 
 ### Nestjs example
 
@@ -362,7 +362,7 @@ To run the `examples/basic.ts` example, run the following:
 - Make a request to the app: `curl http://localhost:3000/`
 - Navigate to the Jaeger UI: http://localhost:16686
 
-![Example exported trace](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/raw/main/docs/img/example-nestjs-export.png)
+![Example exported trace](https://github.com/nifty-lil-tricks/monitoring/raw/main/docs/img/example-nestjs-export.png)
 
 ## Support
 
@@ -379,27 +379,27 @@ To run the `examples/basic.ts` example, run the following:
 - For more about OpenTelemetry JavaScript:
   https://github.com/open-telemetry/opentelemetry-js
 - For help or feedback on this project, join us in
-  [GitHub Discussions](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/discussions)
+  [GitHub Discussions](https://github.com/nifty-lil-tricks/monitoring/discussions)
 
 ## License
 
 Nifty li'l tricks packages are 100% free and open-source, under the
-[MIT license](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/LICENSE).
+[MIT license](https://github.com/nifty-lil-tricks/monitoring/blob/main/LICENSE).
 
 This package is [Treeware](https://treeware.earth). If you use it in production,
 then we ask that you
-[**buy the world a tree**](https://plant.treeware.earth/jonnydgreen/nifty-lil-tricks-monitoring)
+[**buy the world a tree**](https://plant.treeware.earth/nifty-lil-tricks/monitoring)
 to thank us for our work. By contributing to the Treeware forest you’ll be
 creating employment for local families and restoring wildlife habitats.
 
 ## Contributions
 
-[Contributions](https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/blob/main/CONTRIBUTING.md),
+[Contributions](https://github.com/nifty-lil-tricks/monitoring/blob/main/CONTRIBUTING.md),
 issues and feature requests are very welcome. If you are using this package and
 fixed a bug for yourself, please consider submitting a PR!
 
 <p align="center">
-  <a href="https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=jonnydgreen/nifty-lil-tricks-monitoring&columns=8" />
+  <a href="https://github.com/nifty-lil-tricks/monitoring/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=nifty-lil-tricks/monitoring&columns=8" />
   </a>
 </p>

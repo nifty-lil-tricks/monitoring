@@ -26,7 +26,7 @@
 - Fix contributors image
 - Initial commit
 - Make sure coverage is outputted in the correct format
-- Merge pull request #1 from jonnydgreen/feature/add-codecov
+- Add codecov
 - Move github workflows
 - Remove browser support and add support for overriding span kind
 - Reset package.json

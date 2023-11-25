@@ -6,12 +6,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/jonnydgreen/nifty-lil-tricks-monitoring.git"
+    "url": "git+ssh://git@github.com/nifty-lil-tricks/monitoring.git"
   },
   "bugs": {
-    "url": "https://github.com/jonnydgreen/nifty-lil-tricks-monitoring/issues"
+    "url": "https://github.com/nifty-lil-tricks/monitoring/issues"
   },
-  "homepage": "https://github.com/jonnydgreen/nifty-lil-tricks-monitoring",
+  "homepage": "https://github.com/nifty-lil-tricks/monitoring",
   "keywords": [
     "monitoring",
     "opentelemetry",

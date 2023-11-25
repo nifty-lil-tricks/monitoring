@@ -1,3 +1,9 @@
+### 0.3.0 / 2023.11.25
+
+- Add git write permissions to github token
+- Add nestjs example (#14)
+- Migrate repo (#15)
+
 ### 0.2.3 / 2023.11.23
 
 ### 0.2.2 / 2023.11.23

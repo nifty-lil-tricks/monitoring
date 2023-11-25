@@ -18,6 +18,8 @@ jobs:
     name: version bump
     runs-on: ubuntu-22.04
     timeout-minutes: 15
+    permissions:
+      contents: write
 
     steps:
       - name: Clone repository

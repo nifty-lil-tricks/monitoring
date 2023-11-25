@@ -1,3 +1,7 @@
+### 0.3.1 / 2023.11.25
+
+- Add write permissions for release process
+
 ### 0.3.0 / 2023.11.25
 
 - Add git write permissions to github token

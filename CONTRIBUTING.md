@@ -44,3 +44,23 @@ npm run watch
 ```bash
 npm run test:watch
 ```
+
+## Release Process
+
+To release a new version, take the following steps:
+
+- Bump the version by running the
+  [`version_bump`](https://github.com/nifty-lil-tricks/monitoring/actions/workflows/version_bump.yml)
+  GitHub Action and choose the appropriate version bump:
+
+![version-bump](docs/img/version-bump.png)
+
+- Wait for the Pull Request to be created and merge this into main.
+
+- Wait for the
+  [`main` branch action](https://github.com/nifty-lil-tricks/monitoring/actions?query=branch%3Amain)
+  to complete.
+
+- Find the created
+  [draft release](https://github.com/nifty-lil-tricks/monitoring/releases) and
+  publish it.

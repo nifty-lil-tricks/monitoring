@@ -1,7 +1,7 @@
 // Copyright 2023-2023 the Nifty li'l' tricks authors. All rights reserved. MIT license.
 
-import { SpanKind } from "@opentelemetry/api";
-import { MonitorMethod, shouldMonitorMethod } from "./monitor.util";
+import { SpanKind } from "npm:@opentelemetry/api";
+import { MonitorMethod, shouldMonitorMethod } from "./monitor.util.ts";
 
 export type MonitorDecorator = DecoratorContext;
 

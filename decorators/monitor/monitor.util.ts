@@ -1,15 +1,15 @@
 // Copyright 2023-2023 the Nifty li'l' tricks authors. All rights reserved. MIT license.
 
 import {
-	Context,
+	type Context,
 	type Span,
+	type SpanOptions,
 	SpanKind,
-	SpanOptions,
 	SpanStatusCode,
 	context,
 	diag,
 	trace,
-} from "@opentelemetry/api";
+} from "npm:@opentelemetry/api";
 
 function isPromise<Return>(p: Promise<Return> | Return): p is Promise<Return> {
 	return (

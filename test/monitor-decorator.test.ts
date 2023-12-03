@@ -1,19 +1,35 @@
 // Copyright 2023-2023 the Nifty li'l' tricks authors. All rights reserved. MIT license.
 
-import { SpanKind, SpanStatusCode, context, trace } from "@opentelemetry/api";
-import { AsyncLocalStorageContextManager } from "@opentelemetry/context-async-hooks";
-import { type ExportResult, ExportResultCode } from "@opentelemetry/core";
-import { Resource } from "@opentelemetry/resources";
+import {
+	SpanKind,
+	SpanStatusCode,
+	context,
+	trace,
+} from "npm:@opentelemetry/api";
+import { AsyncLocalStorageContextManager } from "npm:@opentelemetry/context-async-hooks";
+import { type ExportResult, ExportResultCode } from "npm:@opentelemetry/core";
+import { Resource } from "npm:@opentelemetry/resources";
 import {
 	BasicTracerProvider,
 	ReadableSpan,
 	SimpleSpanProcessor,
 	type SpanExporter,
-} from "@opentelemetry/sdk-trace-base";
-import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
-import * as t from "tap";
-import { Monitor } from "../src";
-import { withCtx } from "./utils";
+} from "npm:@opentelemetry/sdk-trace-base";
+import { SemanticResourceAttributes } from "npm:@opentelemetry/semantic-conventions";
+import { Monitor } from "../mod.ts";
+import {
+	it,
+	beforeEach,
+	describe,
+	beforeAll,
+	afterAll,
+} from "std/testing/bdd.ts";
+import {
+	assertEquals,
+	assertRejects,
+	assertObjectMatch,
+} from "std/testing/asserts.ts";
+import { withCtx } from "./utils.ts";
 
 @Monitor()
 class Service {
@@ -54,7 +70,7 @@ class Service {
 	}
 }
 
-t.test("Monitor", (t) => {
+describe("Monitor", () => {
 	let mockExporter: SpanExporter;
 	let service: Service;
 	let recordedSpans: ReadableSpan[];
@@ -75,7 +91,7 @@ t.test("Monitor", (t) => {
 		async shutdown(): Promise<void> {}
 	}
 
-	t.before(() => {
+	beforeAll(() => {
 		provider = new BasicTracerProvider({
 			resource: new Resource({
 				[SemanticResourceAttributes.SERVICE_NAME]: "basic-example",
@@ -87,59 +103,59 @@ t.test("Monitor", (t) => {
 		provider.register();
 	});
 
-	t.teardown(async () => {
+	afterAll(async () => {
 		await provider.shutdown();
 	});
 
-	t.beforeEach(() => {
+	beforeEach(() => {
 		recordedSpans = [];
 		service = new Service();
 	});
 
-	t.test("should wrap a method", async (t) => {
+	it("should wrap a method", async () => {
 		// Act
 		const parentSpan = await withCtx(() => service.method());
 		parentSpan.end();
 		const [recordedSpan, recordedParentSpan] = recordedSpans;
 
 		// Assert
-		t.equal(recordedSpans.length, 2);
-		t.equal(recordedSpan.name, "Service.method");
-		t.equal(recordedSpan.kind, SpanKind.INTERNAL);
-		t.strictSame(recordedSpan.status, { code: SpanStatusCode.OK });
-		t.same(recordedSpan.attributes, {
+		assertEquals(recordedSpans.length, 2);
+		assertEquals(recordedSpan.name, "Service.method");
+		assertEquals(recordedSpan.kind, SpanKind.INTERNAL);
+		assertObjectMatch(recordedSpan.status, { code: SpanStatusCode.OK });
+		assertObjectMatch(recordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "method",
 		});
-		t.equal(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
-		t.equal(
+		assertEquals(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
+		assertEquals(
 			recordedParentSpan.spanContext().spanId,
 			parentSpan.spanContext().spanId,
 		);
 	});
 
-	t.test("should wrap an async method", async (t) => {
+	it("should wrap an async method", async () => {
 		// Act
 		const parentSpan = await withCtx(() => service.methodAsync());
 		parentSpan.end();
 		const [recordedSpan, recordedParentSpan] = recordedSpans;
 
 		// Assert
-		t.equal(recordedSpans.length, 2);
-		t.equal(recordedSpan.name, "Service.methodAsync");
-		t.strictSame(recordedSpan.status, { code: SpanStatusCode.OK });
-		t.strictSame(recordedSpan.attributes, {
+		assertEquals(recordedSpans.length, 2);
+		assertEquals(recordedSpan.name, "Service.methodAsync");
+		assertObjectMatch(recordedSpan.status, { code: SpanStatusCode.OK });
+		assertObjectMatch(recordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "methodAsync",
 		});
-		t.equal(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
-		t.equal(
+		assertEquals(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
+		assertEquals(
 			recordedParentSpan.spanContext().spanId,
 			parentSpan.spanContext().spanId,
 		);
 	});
 
-	t.test("should wrap a nested method", async (t) => {
+	it("should wrap a nested method", async () => {
 		// Act
 		const parentSpan = await withCtx(() => service.root());
 		parentSpan.end();
@@ -147,31 +163,34 @@ t.test("Monitor", (t) => {
 			recordedSpans;
 
 		// Assert
-		t.equal(recordedSpans.length, 3);
+		assertEquals(recordedSpans.length, 3);
 		// Nested span
-		t.equal(nestedRecordedSpan.name, "Service.method");
-		t.strictSame(nestedRecordedSpan.status, { code: SpanStatusCode.OK });
-		t.strictSame(nestedRecordedSpan.attributes, {
+		assertEquals(nestedRecordedSpan.name, "Service.method");
+		assertObjectMatch(nestedRecordedSpan.status, { code: SpanStatusCode.OK });
+		assertObjectMatch(nestedRecordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "method",
 		});
-		t.equal(nestedRecordedSpan.parentSpanId, recordedSpan.spanContext().spanId);
+		assertEquals(
+			nestedRecordedSpan.parentSpanId,
+			recordedSpan.spanContext().spanId,
+		);
 		// Recorded span
-		t.equal(recordedSpan.name, "Service.root");
-		t.strictSame(recordedSpan.status, { code: SpanStatusCode.OK });
-		t.strictSame(recordedSpan.attributes, {
+		assertEquals(recordedSpan.name, "Service.root");
+		assertObjectMatch(recordedSpan.status, { code: SpanStatusCode.OK });
+		assertObjectMatch(recordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "root",
 		});
-		t.equal(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
+		assertEquals(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
 		// Parent span
-		t.equal(
+		assertEquals(
 			recordedParentSpan.spanContext().spanId,
 			parentSpan.spanContext().spanId,
 		);
 	});
 
-	t.test("should wrap a nested async method", async (t) => {
+	it("should wrap a nested async method", async () => {
 		// Act
 		const parentSpan = await withCtx(() => service.rootAsync());
 		parentSpan.end();
@@ -179,31 +198,34 @@ t.test("Monitor", (t) => {
 			recordedSpans;
 
 		// Assert
-		t.equal(recordedSpans.length, 3);
+		assertEquals(recordedSpans.length, 3);
 		// Nested span
-		t.equal(nestedRecordedSpan.name, "Service.methodAsync");
-		t.strictSame(nestedRecordedSpan.status, { code: SpanStatusCode.OK });
-		t.strictSame(nestedRecordedSpan.attributes, {
+		assertEquals(nestedRecordedSpan.name, "Service.methodAsync");
+		assertObjectMatch(nestedRecordedSpan.status, { code: SpanStatusCode.OK });
+		assertObjectMatch(nestedRecordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "methodAsync",
 		});
-		t.equal(nestedRecordedSpan.parentSpanId, recordedSpan.spanContext().spanId);
+		assertEquals(
+			nestedRecordedSpan.parentSpanId,
+			recordedSpan.spanContext().spanId,
+		);
 		// Recorded span
-		t.equal(recordedSpan.name, "Service.rootAsync");
-		t.strictSame(recordedSpan.status, { code: SpanStatusCode.OK });
-		t.strictSame(recordedSpan.attributes, {
+		assertEquals(recordedSpan.name, "Service.rootAsync");
+		assertObjectMatch(recordedSpan.status, { code: SpanStatusCode.OK });
+		assertObjectMatch(recordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "rootAsync",
 		});
-		t.equal(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
+		assertEquals(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
 		// Parent span
-		t.equal(
+		assertEquals(
 			recordedParentSpan.spanContext().spanId,
 			parentSpan.spanContext().spanId,
 		);
 	});
 
-	t.test("should wrap multiple methods", async (t) => {
+	it("should wrap multiple methods", async () => {
 		// Arrange
 		const tracer = trace.getTracer("defaults");
 		const parentSpan = tracer.startSpan("basic-root");
@@ -221,191 +243,201 @@ t.test("Monitor", (t) => {
 		] = recordedSpans;
 
 		// Assert
-		t.equal(recordedSpans.length, 4);
+		assertEquals(recordedSpans.length, 4);
 		// Nested span
-		t.equal(nestedRecordedSpan.name, "Service.methodAsync");
-		t.strictSame(nestedRecordedSpan.status, { code: SpanStatusCode.OK });
-		t.strictSame(nestedRecordedSpan.attributes, {
+		assertEquals(nestedRecordedSpan.name, "Service.methodAsync");
+		assertObjectMatch(nestedRecordedSpan.status, { code: SpanStatusCode.OK });
+		assertObjectMatch(nestedRecordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "methodAsync",
 		});
-		t.equal(
+		assertEquals(
 			nestedRecordedSpan.parentSpanId,
 			recordedSpan1.spanContext().spanId,
 		);
 		// Recorded span 1
-		t.equal(recordedSpan1.name, "Service.rootAsync");
-		t.strictSame(recordedSpan1.status, { code: SpanStatusCode.OK });
-		t.strictSame(recordedSpan1.attributes, {
+		assertEquals(recordedSpan1.name, "Service.rootAsync");
+		assertObjectMatch(recordedSpan1.status, { code: SpanStatusCode.OK });
+		assertObjectMatch(recordedSpan1.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "rootAsync",
 		});
 		// Recorded span 2
-		t.equal(recordedSpan2.name, "Service.method");
-		t.strictSame(recordedSpan2.status, { code: SpanStatusCode.OK });
-		t.strictSame(recordedSpan2.attributes, {
+		assertEquals(recordedSpan2.name, "Service.method");
+		assertObjectMatch(recordedSpan2.status, { code: SpanStatusCode.OK });
+		assertObjectMatch(recordedSpan2.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "method",
 		});
-		t.equal(recordedSpan2.parentSpanId, parentSpan.spanContext().spanId);
-		t.equal(recordedSpan1.parentSpanId, parentSpan.spanContext().spanId);
+		assertEquals(recordedSpan2.parentSpanId, parentSpan.spanContext().spanId);
+		assertEquals(recordedSpan1.parentSpanId, parentSpan.spanContext().spanId);
 		// Parent span
-		t.equal(
+		assertEquals(
 			recordedParentSpan.spanContext().spanId,
 			parentSpan.spanContext().spanId,
 		);
 	});
 
-	t.test("should correctly handle errors", async (t) => {
+	it("should correctly handle errors", async () => {
 		// Arrange
 		const tracer = trace.getTracer("defaults");
 		const parentSpan = tracer.startSpan("basic-root");
 
 		// Act & Assert
-		t.rejects(
-			withCtx(() => service.error(), parentSpan),
-			new Error("error"),
+		assertRejects(
+			() => withCtx(() => service.error(), parentSpan),
+			Error,
+			"error",
 		);
 		parentSpan.end();
-		t.equal(recordedSpans.length, 2);
+		assertEquals(recordedSpans.length, 2);
 		const [recordedSpan, recordedParentSpan] = recordedSpans;
 		// Recorded span
-		t.equal(recordedSpan.name, "Service.error");
-		t.strictSame(recordedSpan.status, {
+		assertEquals(recordedSpan.name, "Service.error");
+		assertObjectMatch(recordedSpan.status, {
 			code: SpanStatusCode.ERROR,
 			message: "Error: error",
 		});
-		t.strictSame(recordedSpan.attributes, {
+		assertObjectMatch(recordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "error",
 		});
-		t.equal(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
+		assertEquals(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
 		// Parent span
-		t.equal(
+		assertEquals(
 			recordedParentSpan.spanContext().spanId,
 			parentSpan.spanContext().spanId,
 		);
 	});
 
-	t.test("should correctly handle nested errors", async (t) => {
+	it("should correctly handle nested errors", async () => {
 		// Arrange
 		const tracer = trace.getTracer("defaults");
 		const parentSpan = tracer.startSpan("basic-root");
 
 		// Act & Assert
-		t.rejects(
-			withCtx(() => service.rootError(), parentSpan),
-			new Error("error"),
+		assertRejects(
+			() => withCtx(() => service.rootError(), parentSpan),
+			Error,
+			"error",
 		);
 		parentSpan.end();
 
-		t.equal(recordedSpans.length, 3);
+		assertEquals(recordedSpans.length, 3);
 		const [nestedRecordedSpan, recordedSpan, recordedParentSpan] =
 			recordedSpans;
 		// Nested span
-		t.equal(nestedRecordedSpan.name, "Service.error");
-		t.strictSame(nestedRecordedSpan.status, {
+		assertEquals(nestedRecordedSpan.name, "Service.error");
+		assertObjectMatch(nestedRecordedSpan.status, {
 			code: SpanStatusCode.ERROR,
 			message: "Error: error",
 		});
-		t.strictSame(nestedRecordedSpan.attributes, {
+		assertObjectMatch(nestedRecordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "error",
 		});
-		t.equal(nestedRecordedSpan.parentSpanId, recordedSpan.spanContext().spanId);
+		assertEquals(
+			nestedRecordedSpan.parentSpanId,
+			recordedSpan.spanContext().spanId,
+		);
 		// Recorded span
-		t.equal(recordedSpan.name, "Service.rootError");
-		t.strictSame(recordedSpan.status, {
+		assertEquals(recordedSpan.name, "Service.rootError");
+		assertObjectMatch(recordedSpan.status, {
 			code: SpanStatusCode.ERROR,
 			message: "Error: error",
 		});
-		t.strictSame(recordedSpan.attributes, {
+		assertObjectMatch(recordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "rootError",
 		});
-		t.equal(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
+		assertEquals(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
 		// Parent span
-		t.equal(
+		assertEquals(
 			recordedParentSpan.spanContext().spanId,
 			parentSpan.spanContext().spanId,
 		);
 	});
 
-	t.test("should correctly handle async errors", async (t) => {
+	it("should correctly handle async errors", async () => {
 		// Arrange
 		const tracer = trace.getTracer("defaults");
 		const parentSpan = tracer.startSpan("basic-root");
 
 		// Act & Assert
-		await t.rejects(
-			withCtx(() => service.asyncError(), parentSpan),
-			new Error("asyncError"),
+		await assertRejects(
+			() => withCtx(() => service.asyncError(), parentSpan),
+			Error,
+			"asyncError",
 		);
 		parentSpan.end();
-		t.equal(recordedSpans.length, 2);
+		assertEquals(recordedSpans.length, 2);
 		const [recordedSpan, recordedParentSpan] = recordedSpans;
 		// Recorded span
-		t.equal(recordedSpan.name, "Service.asyncError");
-		t.strictSame(recordedSpan.status, {
+		assertEquals(recordedSpan.name, "Service.asyncError");
+		assertObjectMatch(recordedSpan.status, {
 			code: SpanStatusCode.ERROR,
 			message: "Error: asyncError",
 		});
-		t.strictSame(recordedSpan.attributes, {
+		assertObjectMatch(recordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "asyncError",
 		});
-		t.equal(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
+		assertEquals(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
 		// Parent span
-		t.equal(
+		assertEquals(
 			recordedParentSpan.spanContext().spanId,
 			parentSpan.spanContext().spanId,
 		);
 	});
 
-	t.test("should correctly handle nested async errors", async (t) => {
+	it("should correctly handle nested async errors", async () => {
 		// Arrange
 		const tracer = trace.getTracer("defaults");
 		const parentSpan = tracer.startSpan("basic-root");
 
 		// Act & Assert
-		await t.rejects(
-			withCtx(() => service.rootAsyncError(), parentSpan),
-			new Error("asyncError"),
+		await assertRejects(
+			() => withCtx(() => service.rootAsyncError(), parentSpan),
+			Error,
+			"asyncError",
 		);
 		parentSpan.end();
-		t.equal(recordedSpans.length, 3);
+		assertEquals(recordedSpans.length, 3);
 		const [nestedRecordedSpan, recordedSpan, recordedParentSpan] =
 			recordedSpans;
 		// Nested span
-		t.equal(nestedRecordedSpan.name, "Service.asyncError");
-		t.strictSame(recordedSpan.status, {
+		assertEquals(nestedRecordedSpan.name, "Service.asyncError");
+		assertObjectMatch(recordedSpan.status, {
 			code: SpanStatusCode.ERROR,
 			message: "Error: asyncError",
 		});
-		t.strictSame(nestedRecordedSpan.attributes, {
+		assertObjectMatch(nestedRecordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "asyncError",
 		});
-		t.equal(nestedRecordedSpan.parentSpanId, recordedSpan.spanContext().spanId);
+		assertEquals(
+			nestedRecordedSpan.parentSpanId,
+			recordedSpan.spanContext().spanId,
+		);
 		// Recorded span
-		t.equal(recordedSpan.name, "Service.rootAsyncError");
-		t.strictSame(recordedSpan.status, {
+		assertEquals(recordedSpan.name, "Service.rootAsyncError");
+		assertObjectMatch(recordedSpan.status, {
 			code: SpanStatusCode.ERROR,
 			message: "Error: asyncError",
 		});
-		t.strictSame(recordedSpan.attributes, {
+		assertObjectMatch(recordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "rootAsyncError",
 		});
-		t.equal(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
+		assertEquals(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
 		// Parent span
-		t.equal(
+		assertEquals(
 			recordedParentSpan.spanContext().spanId,
 			parentSpan.spanContext().spanId,
 		);
 	});
 
-	t.test("should override the inferred class name if provided", async (t) => {
+	it("should override the inferred class name if provided", async () => {
 		// Act
 		const serviceClassName = "ServiceOverride";
 		@Monitor({ className: serviceClassName }) class Service {
@@ -417,21 +449,21 @@ t.test("Monitor", (t) => {
 		const [recordedSpan, recordedParentSpan] = recordedSpans;
 
 		// Assert
-		t.equal(recordedSpans.length, 2);
-		t.equal(recordedSpan.name, `${serviceClassName}.method`);
-		t.strictSame(recordedSpan.status, { code: SpanStatusCode.OK });
-		t.strictSame(recordedSpan.attributes, {
+		assertEquals(recordedSpans.length, 2);
+		assertEquals(recordedSpan.name, `${serviceClassName}.method`);
+		assertObjectMatch(recordedSpan.status, { code: SpanStatusCode.OK });
+		assertObjectMatch(recordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "method",
 		});
-		t.equal(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
-		t.equal(
+		assertEquals(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
+		assertEquals(
 			recordedParentSpan.spanContext().spanId,
 			parentSpan.spanContext().spanId,
 		);
 	});
 
-	t.test("should override the span kind if provided", async (t) => {
+	it("should override the span kind if provided", async () => {
 		// Act
 		const spanKind = SpanKind.SERVER;
 		@Monitor({ spanKind: SpanKind.SERVER }) class Service {
@@ -443,22 +475,22 @@ t.test("Monitor", (t) => {
 		const [recordedSpan, recordedParentSpan] = recordedSpans;
 
 		// Assert
-		t.equal(recordedSpans.length, 2);
-		t.equal(recordedSpan.name, `${serviceClassName}.method`);
-		t.equal(recordedSpan.kind, spanKind);
-		t.strictSame(recordedSpan.status, { code: SpanStatusCode.OK });
-		t.strictSame(recordedSpan.attributes, {
+		assertEquals(recordedSpans.length, 2);
+		assertEquals(recordedSpan.name, `${serviceClassName}.method`);
+		assertEquals(recordedSpan.kind, spanKind);
+		assertObjectMatch(recordedSpan.status, { code: SpanStatusCode.OK });
+		assertObjectMatch(recordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "method",
 		});
-		t.equal(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
-		t.equal(
+		assertEquals(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
+		assertEquals(
 			recordedParentSpan.spanContext().spanId,
 			parentSpan.spanContext().spanId,
 		);
 	});
 
-	t.test("should override the default tracer if provided", async (t) => {
+	it("should override the default tracer if provided", async () => {
 		// Act
 		const tracerName = "another-tracer";
 		@Monitor({ tracerName }) class Service {
@@ -475,44 +507,44 @@ t.test("Monitor", (t) => {
 		const [recordedSpan, recordedParentSpan] = recordedSpans;
 
 		// Assert
-		t.equal(recordedSpans.length, 2);
-		t.equal(recordedSpan.name, "Service.method");
-		t.strictSame(recordedSpan.status, { code: SpanStatusCode.OK });
-		t.strictSame(recordedSpan.attributes, {
+		assertEquals(recordedSpans.length, 2);
+		assertEquals(recordedSpan.name, "Service.method");
+		assertObjectMatch(recordedSpan.status, { code: SpanStatusCode.OK });
+		assertObjectMatch(recordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "method",
 		});
-		t.equal(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
-		t.equal(
+		assertEquals(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
+		assertEquals(
 			recordedParentSpan.spanContext().spanId,
 			parentSpan.spanContext().spanId,
 		);
 	});
 
-	t.test("should not monitor if no parent spans are setup", async (t) => {
+	it("should not monitor if no parent spans are setup", async () => {
 		// Act
 		await service.rootAsync();
 
 		// Assert
-		t.equal(recordedSpans.length, 0);
+		assertEquals(recordedSpans.length, 0);
 	});
 
-	t.test("should not wrap hash methods", async (t) => {
+	it("should not wrap hash methods", async () => {
 		// Act
 		const parentSpan = await withCtx(() => service.callPrivateMethod());
 		parentSpan.end();
 		const [recordedSpan, recordedParentSpan] = recordedSpans;
 
 		// Assert
-		t.equal(recordedSpans.length, 2);
-		t.equal(recordedSpan.name, "Service.callPrivateMethod");
-		t.strictSame(recordedSpan.status, { code: SpanStatusCode.OK });
-		t.same(recordedSpan.attributes, {
+		assertEquals(recordedSpans.length, 2);
+		assertEquals(recordedSpan.name, "Service.callPrivateMethod");
+		assertObjectMatch(recordedSpan.status, { code: SpanStatusCode.OK });
+		assertObjectMatch(recordedSpan.attributes, {
 			"monitoring.class": serviceClassName,
 			"monitoring.method": "callPrivateMethod",
 		});
-		t.equal(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
-		t.equal(
+		assertEquals(recordedSpan.parentSpanId, parentSpan.spanContext().spanId);
+		assertEquals(
 			recordedParentSpan.spanContext().spanId,
 			parentSpan.spanContext().spanId,
 		);
@@ -533,7 +565,7 @@ t.test("Monitor", (t) => {
 			},
 		},
 	].forEach(({ test, allowedMethods }) => {
-		t.test(test, async (t) => {
+		it(test, async () => {
 			// Arrange
 			@Monitor({ allowedMethods }) class Service {
 				notAllowed(): void {}
@@ -557,35 +589,35 @@ t.test("Monitor", (t) => {
 			] = recordedSpans;
 
 			// Assert
-			t.equal(recordedSpans.length, 3);
-			t.equal(recordedAllowedNestedSpan.name, "Service.allowedNested");
-			t.strictSame(recordedAllowedNestedSpan.status, {
+			assertEquals(recordedSpans.length, 3);
+			assertEquals(recordedAllowedNestedSpan.name, "Service.allowedNested");
+			assertObjectMatch(recordedAllowedNestedSpan.status, {
 				code: SpanStatusCode.OK,
 			});
-			t.same(recordedAllowedNestedSpan.attributes, {
+			assertObjectMatch(recordedAllowedNestedSpan.attributes, {
 				"monitoring.class": serviceClassName,
 				"monitoring.method": "allowedNested",
 			});
-			t.equal(
+			assertEquals(
 				recordedAllowedNestedSpan.parentSpanId,
 				recordedAllowedSpan.spanContext().spanId,
 			);
-			t.equal(recordedAllowedSpan.name, "Service.allowed");
-			t.strictSame(recordedAllowedSpan.status, { code: SpanStatusCode.OK });
-			t.same(recordedAllowedSpan.attributes, {
+			assertEquals(recordedAllowedSpan.name, "Service.allowed");
+			assertObjectMatch(recordedAllowedSpan.status, {
+				code: SpanStatusCode.OK,
+			});
+			assertObjectMatch(recordedAllowedSpan.attributes, {
 				"monitoring.class": serviceClassName,
 				"monitoring.method": "allowed",
 			});
-			t.equal(
+			assertEquals(
 				recordedAllowedSpan.parentSpanId,
 				parentSpan.spanContext().spanId,
 			);
-			t.equal(
+			assertEquals(
 				recordedParentSpan.spanContext().spanId,
 				parentSpan.spanContext().spanId,
 			);
 		});
 	});
-
-	t.end();
 });
